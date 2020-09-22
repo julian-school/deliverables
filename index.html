@@ -14,6 +14,97 @@
   </style>
   </head>
   <body>
-    <h1>Testing Testing 123</h1>
+    <p align="center"> 
+      <canvas id="mycanvas"></canvas> 
+    </p>
   </body>
-</html>
+  <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+ 
+ <script>
+    var sketchProc = function(processingInstance) {
+     with (processingInstance) {
+        size(600, 600); 
+        frameRate(60);
+          //Graphs quadratic equations and finds the roots of the parabola for you.
+          //a
+          var a = 1/30;
+          //b
+          var b = 0;
+          //c
+          var c = 0;
+          //translate x
+          var tx = 0;
+          //translate y
+          var ty = 0;
+          //zoom
+          var zm = 10;
+
+          //Code {
+          zm=abs(zm);
+          function quadratics(a, b, c){
+              if(sq(b)-(4*a*c) >= 0){
+                  return [(-b+sqrt(sq(b)-(4*a*c)))/(2*a), (-b-sqrt(sq(b)-(4*a*c)))/(2*a)];
+              } else if(sq(b)-(4*a*c) < 0){
+                  return [-b/(2*a), sqrt(-(sq(b)-(4*a*c)))/(2*a)];
+              }
+          }
+          function zoom(x, y, size){
+              translate(width/2, height/2);
+              scale(size/10);
+              translate(-width/2, -height/2);
+              translate(-x, y);
+          }
+          var r1 = quadratics(a, b, c)[0];
+          var r2 = quadratics(a, b, c)[1];
+          var lines = 10;
+          var x = -width;
+
+              zoom(tx, ty, zm);
+                   background(240);
+                  pushMatrix();
+                  translate(width/2, height/2);
+                  scale(1, -1); 
+                  for(var i = x; i < width; i+=1){
+                      line(i, a*sq(i)+b*i+c, i+1, a*sq(i+1)+b*(i+1)+c);
+                  }
+                  popMatrix();
+              fill(0);
+              for(var i = 0; i <= width; i+=width/lines/2){
+                  line(i, height/2-5, i, height/2+5);
+                  line(width/2-5, i, width/2+5, i);
+                  textAlign(CENTER, TOP);
+                  textSize(15);
+                  text(floor(i-width/2), i, height/2+5);
+                  textAlign(LEFT, CENTER);
+                  text(floor(height/2-i), width/2+8, i);
+              }
+          fill(255, 255, 255, 200);
+          rect(0, 0, 300, 155);
+          fill(0);
+          pushMatrix();
+          translate(-width/4, -height/2.7);
+              textSize(22.5);
+              textAlign(CENTER, CENTER);
+              text(a.toFixed(2) + "x²" + "+" + b.toFixed(2) + "x" + "+" + c.toFixed(2) , width/2, height/2.5);
+              if(sq(b)-(4*a*c) >= 0){
+              text(-b.toFixed(1)  + "±√" + b.toFixed(1) + "²" + "-" + "(4)(" + a.toFixed(1) + ")" + "(" + c.toFixed(1) + ")\n2(" + a.toFixed(1) + ")" , width/2, height/2);
+              } else {
+              text(-b.toFixed(1)  + "±√(" + b.toFixed(1) + "²" + "-" + "(4)(" + a.toFixed(1) + ")" + "(" + c.toFixed(1) + "))*i\n2(" + a.toFixed(1) + ")"  , width/2, height/2); 
+              }
+              strokeWeight(2);
+              line(width/2-140, height/2+1, width/2+140, height/2+1);
+              if(sq(b)-(4*a*c) > 0){
+              text("x₁ = " + quadratics(a, b, c)[0].toFixed(3) + ", x₂ = " + quadratics(a, b, c)[1].toFixed(3), width/2, height/1.7);
+              } else if(sq(b)-(4*a*c) === 0){
+              text("x = " + quadratics(a, b, c)[0].toFixed(3), width/2, height/1.7);
+              } else if(sq(b)-(4*a*c) < 0) {
+              text("x = " + "±" + quadratics(a, b, c)[1].toFixed(3) + "i", width/2, height/1.7);
+              }
+          popMatrix();
+              line(width/2, 0, width/2, height);
+              line(0, height/2, width, height/2);   
+              }};
+              var canvas = document.getElementById("mycanvas"); 
+              var processingInstance = new Processing(canvas, sketchProc); 
+         </script>
+        </html>
