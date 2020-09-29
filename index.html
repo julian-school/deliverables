@@ -484,9 +484,7 @@ function planet(x, y, n, b){
 background(16, 11, 57);
 bckgrnd(100);
 var ba = get(0, 0, width, width);
-var fc = 0;
 draw = function() {
- fc++;
 image(ba, 0, 0);
 planet(75, 60, 0, color(16, 11, 57));
 planet(230, 70, 1, color(16, 11, 57));
@@ -495,7 +493,7 @@ planet(610, 70, 3, color(16, 11, 57));
 planet(180, 320, 4, color(16, 11, 57));
 planet(540, 320, 5, color(16, 11, 57));
 planet(400, 400, 6, color(16, 11, 57));   
-glow(50, 50, 100+(sin(radians(fc*3))*2), 200+(sin(radians(fc*2.5))*20), 20+cos(radians(fc*2))*10, 3, color(255, 255, 0));
+     glow(width/2, height/2, 200, 100, 30, 3, color(255, 255, 0));
 };
 
 
