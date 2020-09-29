@@ -29,84 +29,455 @@
      with (processingInstance) {
         size(600, 600); 
         frameRate(60);
-          //Graphs quadratic equations and finds the roots of the parabola for you.
-          //a
-          var a = 1/30;
-          //b
-          var b = 0;
-          //c
-          var c = 0;
-          //translate x
-          var tx = 0;
-          //translate y
-          var ty = 0;
-          //zoom
-          var zm = 10;
+ //960x540
+//Pallete:
 
-          //Code {
-          zm=abs(zm);
-          function quadratics(a, b, c){
-              if(sq(b)-(4*a*c) >= 0){
-                  return [(-b+sqrt(sq(b)-(4*a*c)))/(2*a), (-b-sqrt(sq(b)-(4*a*c)))/(2*a)];
-              } else if(sq(b)-(4*a*c) < 0){
-                  return [-b/(2*a), sqrt(-(sq(b)-(4*a*c)))/(2*a)];
-              }
-          }
-          function zoom(x, y, size){
-              translate(width/2, height/2);
-              scale(size/10);
-              translate(-width/2, -height/2);
-              translate(-x, y);
-          }
-          var r1 = quadratics(a, b, c)[0];
-          var r2 = quadratics(a, b, c)[1];
-          var lines = 10;
-          var x = -width;
+//Background: background(16, 11, 57);
+//Dots: fill(35, 88, 222), fill(96, 23, 179)
 
-              zoom(tx, ty, zm);
-                   background(240);
-                  pushMatrix();
-                  translate(width/2, height/2);
-                  scale(1, -1); 
-                  for(var i = x; i < width; i+=1){
-                      line(i, a*sq(i)+b*i+c, i+1, a*sq(i+1)+b*(i+1)+c);
-                  }
-                  popMatrix();
-              fill(0);
-              for(var i = 0; i <= width; i+=width/lines/2){
-                  line(i, height/2-5, i, height/2+5);
-                  line(width/2-5, i, width/2+5, i);
-                  textAlign(CENTER, TOP);
-                  textSize(15);
-                  text(floor(i-width/2), i, height/2+5);
-                  textAlign(LEFT, CENTER);
-                  text(floor(height/2-i), width/2+8, i);
-              }
-          fill(255, 255, 255, 200);
-          rect(0, 0, 300, 155);
-          fill(0);
-          pushMatrix();
-          translate(-width/4, -height/2.7);
-              textSize(22.5);
-              textAlign(CENTER, CENTER);
-              text(a.toFixed(2) + "x²" + "+" + b.toFixed(2) + "x" + "+" + c.toFixed(2) , width/2, height/2.5);
-              if(sq(b)-(4*a*c) >= 0){
-              text(-b.toFixed(1)  + "±√" + b.toFixed(1) + "²" + "-" + "(4)(" + a.toFixed(1) + ")" + "(" + c.toFixed(1) + ")\n2(" + a.toFixed(1) + ")" , width/2, height/2);
-              } else {
-              text(-b.toFixed(1)  + "±√(" + b.toFixed(1) + "²" + "-" + "(4)(" + a.toFixed(1) + ")" + "(" + c.toFixed(1) + "))*i\n2(" + a.toFixed(1) + ")"  , width/2, height/2); 
-              }
-              strokeWeight(2);
-              line(width/2-140, height/2+1, width/2+140, height/2+1);
-              if(sq(b)-(4*a*c) > 0){
-              text("x₁ = " + quadratics(a, b, c)[0].toFixed(3) + ", x₂ = " + quadratics(a, b, c)[1].toFixed(3), width/2, height/1.7);
-              } else if(sq(b)-(4*a*c) === 0){
-              text("x = " + quadratics(a, b, c)[0].toFixed(3), width/2, height/1.7);
-              } else if(sq(b)-(4*a*c) < 0) {
-              text("x = " + "±" + quadratics(a, b, c)[1].toFixed(3) + "i", width/2, height/1.7);
-              }
-          popMatrix();
-              line(width/2, 0, width/2, height);
-              line(0, height/2, width, height/2);   
+//Mercury: fill(156, 148, 224), fill(138, 130, 209), fill(121, 113, 189)
+
+//Venus: fill(255, 208, 107), fill(255, 161, 79), fill(255, 134, 69)
+
+//Earth: blue: fill(0, 123, 255), green: fill(0, 203, 225), white: fill(191, 214, 255)
+
+//Mars: fill(255, 94, 94), fill(224, 61, 99), fill(207, 45, 89)
+
+//Jupiter: light Orange: fill(255, 161, 79), med orange: fill(255, 141, 79), dark orange: fill(255, 94, 94), yellow: fill(255, 208, 107), purple: fill(174, 106, 255)
+
+//Saturn: Planet- fill(255, 219, 179), fill(255, 208, 107), Rings- fill(0, 166, 228), fill(0, 140, 191), green: fill(0, 196, 155)
+
+//Uranus: fill(71, 213, 229), fill(34, 187, 229)
+
+//Neptune: fill(147, 55, 255), fill(115, 0, 255), fill(80, 51, 196)
+
+//Pluto: fill(80, 51, 196), fill(80, 51, 196), fill(136, 45, 127)
+
+function bckgrnd(stars){
+    var pos = [];
+    for(var i=0; i < stars; i++){
+        pos.push({
+        x: random(0, width), 
+        y: random(0, height)
+        });
+    }
+
+    for(var i=0; i < pos.length; i++){
+    var s = 10;
+    s=8;
+        stroke(0, 29, 97);
+        fill(0, 29, 97);
+        if(i%3 === 0){
+            s=13;
+            stroke(35, 88, 222);
+            fill(35, 88, 222);
+        } else if(i%3 === 1){
+            s=10;
+            stroke(96, 23, 179);
+            fill(96, 23, 179);
+        }
+    ellipse(pos[i].x, pos[i].y, s, s);
+    }
+}
+
+function planet(x, y, n, b){
+    if(n===0){
+        //Glow
+        noStroke();
+        fill(71, 38, 137, 53);
+        strokeWeight(10);
+        ellipse(x, y, 130, 130);
+        noStroke();
+        fill(138, 130, 209);
+        ellipse(x, y, 100, 100);
+        //Light Spots
+        fill(166, 158, 234);
+        //BL
+        rect(x-50, y+17, 32, 17, 100);
+        //TL
+        rect(x-53, y-16, 20, 11, 100);
+        //R
+        rect(x+23, y-30, 23, 18, 100);
+        rect(x+10, y-18, 45, 22, 100);
+        fill(138, 130, 209);
+        //Gap
+        rect(x+0, y-7, 31, 10, 100);
+        fill(166, 158, 234);
+        rect(x+16, y+2, 35, 8, 100);
+        rect(x+10, y-13, 35, 8, 100);
+        rect(x+25, y+4, 30, 15, 100);
+        //Dark Spots
+        fill(121, 113, 189);
+        //L
+        rect(x-40, y-1, 20, 11, 100);
+        //T
+        rect(x-19, y-42, 27, 11, 100);
+        //BR
+        rect(x, y+29, 34, 11, 100);
+        rect(x-11, y+23, 30, 11, 100);
+        //Reflection
+        fill(255, 40);
+        ellipse(x-15, y-19, 50, 50);
+        //Border
+        noFill();
+        stroke(b);
+        strokeWeight(10);
+        ellipse(x, y, 110, 110);
+    }
+    if(n===1){
+        //Glow
+        noStroke();
+        fill(71, 38, 137, 53);
+        strokeWeight(10);
+        ellipse(x, y, 160, 160);
+        noStroke();
+        fill(255, 161, 79);
+        ellipse(x, y, 130, 130);
+        //Dark Spots
+        noStroke();
+        fill(255, 134, 69);
+        //TR
+        rect(x-20, y-71, 45, 16, 100);
+        rect(x-11, y-62, 53, 23, 10);
+        fill(255, 134, 69);
+        rect(x-24, y-49, 26, 10, 100);
+        //MR
+        rect(x+15, y-31, 49, 13, 100);
+        rect(x+21, y-11, 49, 13, 100);
+        rect(x-5, y-22, 54, 15, 100);
+        fill(255, 161, 79);
+        rect(x+44, y-20, 20, 10, 100);
+        //BR
+        fill(255, 134, 69);
+        rect(x+3, y+52, 32, 16, 100);
+        rect(x+21, y+39, 29, 16, 100);
+        rect(x-17, y+27, 80, 15, 100);
+        fill(255, 161, 79);
+        rect(x+1, y+42, 29, 10, 100);
+        fill(255, 134, 69);
+        rect(x+1, y+19, 63, 18, 100);
+        //M
+        rect(x+-29, y+4, 25, 13, 100);
+        rect(x+-66, y+-24, 48, 19, 100);
+        //BL
+        rect(x+-52, y+37, 19, 19, 100);
+        //Light Spots
+        //BR
+        fill(255, 208, 107);
+        rect(x+19, y+22, 29, 11, 100);
+        rect(x+27, y+28, 32, 10, 100);
+        fill(255, 134, 69);
+        rect(x+15, y+32, 19, 8, 100);
+        //T
+        fill(255, 208, 107);
+        rect(x-9, y-69, 28, 12, 100);
+        //L
+        fill(255, 208, 107);
+        rect(x+-54, y+18, 26, 13, 100);
+        //Reflection
+        fill(255, 40);
+        ellipse(x-24, y-29, 55, 55);
+        //Border
+        noFill();
+        stroke(b);
+        strokeWeight(10);
+        ellipse(x, y, 140, 140);
+    }
+    if(n===2){
+        //Glow
+        noStroke();
+        fill(71, 38, 137, 53);
+        strokeWeight(10);
+        ellipse(x, y, 190, 190);
+        noStroke();
+        fill(0, 123, 255);
+        ellipse(x, y, 160, 160);
+        //T
+        fill(0, 203, 225);
+        rect(x-26, y-84, 33, 13, 10);
+        //TL
+        rect(x-71, y-55, 32, 13, 100);
+        //TR
+        rect(x+-6, y-65, 71, 21, 100); 
+        rect(x+11, y-48, 61, 18, 100); 
+        rect(x+30, y-35, 49, 18, 100); 
+        fill(0, 123, 255);
+        rect(x+6, y-44, 13, 18, 100); 
+        rect(x+19, y-30, 15, 18, 100);
+        fill(191, 214, 255);
+        rect(x+36, y-43, 38, 17, 100);
+        rect(x+51, y-54, 17, 17, 100);
+        fill(0, 203, 225);
+        rect(x+39, y-58, 21, 15, 100);
+        //RM
+        rect(x+25, y-8, 36, 15, 100);
+        rect(x+35, y+0, 36, 13, 100);
+        rect(x+20, y+6, 36, 17, 100);
+        fill(0, 123, 255);
+        rect(x+9, y+3, 29, 10, 100);
+        fill(0, 203, 225);
+        rect(x+20, y+11, 36, 10, 100);
+        rect(x+25, y-8, 36, 12, 100);
+        //B
+        fill(191, 214, 255);
+        rect(x-45, y+61, 58, 19, 100);
+        //L
+        fill(0, 203, 225);
+        rect(x+-75, y+35, 59, 16, 100);
+        rect(x+-78, y+22, 37, 16, 100);
+        rect(x+-83, y+9, 59, 16, 100);
+        fill(0, 123, 255);
+        rect(x+-45, y+23, 30, 13, 100);
+        fill(191, 214, 255);
+        rect(x+-85, y+3, 40, 20, 100);
+        //LM
+        fill(0, 203, 225);
+        rect(x+-81, y+-32, 53, 16, 100);
+        rect(x+-86, y+-20, 38, 19, 100);
+        fill(191, 214, 255);
+        rect(x+-73, y+-26, 61, 19, 100);
+        //Reflection
+        fill(255, 40);
+        ellipse(x-26, y-39, 65, 65);
+        //Border
+        noFill();
+        stroke(b);
+        strokeWeight(10);
+        ellipse(x, y, 170, 170);
+    }
+    if(n===3){
+        //Glow
+        noStroke();
+        fill(71, 38, 137, 53);
+        strokeWeight(10);
+        ellipse(x, y, 155, 155);
+        noStroke();
+        fill(224, 61, 99);
+        ellipse(x, y, 125, 125);
+        //Light Spots
+        //TR
+        fill(255, 94, 94);
+        rect(x+-7, y+-64, 46, 17, 100);
+        rect(x+1, y+-41, 30, 15, 100);
+        //MR
+        rect(x+50, y+-33, 15, 24, 100);
+        rect(x+24, y+5, 42, 20, 100);
+        rect(x+26, y+36, 27, 18, 100);
+        //B
+        rect(x+-17, y+52, 36, 18, 100);
+        //L
+        rect(x+-65, y+15, 53, 18, 100);
+        //TL
+        rect(x+-69, y+-28, 58, 27, 100);
+        rect(x+-50, y+-57, 30, 22, 100);
+        //Dark Spots
+        fill(207, 45, 89);
+        //TL
+        ellipse(x+-39, y+-49, 15, 15);
+        ellipse(x+-18, y+-31, 20, 20);
+        //M
+        ellipse(x+15, y+-9, 22, 22);
+        //MR 
+        ellipse(x+45, y+-23, 15, 15);
+        //BR
+        ellipse(x+49, y+40, 15, 15);
+        ellipse(x+26, y+32, 12, 12);
+        //BM
+        ellipse(x+2, y+28, 13, 13);
+        ellipse(x+-24, y+37, 20, 20);
+        //BL
+        ellipse(x+-59, y+18, 15, 15);
+        //Reflection
+        fill(255, 40);
+        ellipse(x-17, y-32, 65, 65);
+        //Border
+        noFill();
+        stroke(b);
+        strokeWeight(10);
+        ellipse(x, y, 135, 135);
+    }
+    if(n===4){
+        pushMatrix();
+        //Glow
+        noStroke();
+        fill(71, 38, 137, 53);
+        strokeWeight(10);
+        ellipse(x, y, 350, 350);
+        translate(x, y);
+        rotate(15);
+        noStroke();
+        fill(255, 161, 79);
+        ellipse(0, 0, 320, 320);
+        //T&B 
+        fill(255, 208, 107);
+        arc(0, -129, 191, 60, 180, 360);
+        arc(0, 115, 225, 95, 0, 180);
+        //Top Med orange band
+        fill(255, 141, 79);
+        rect(-122, -130, 242, 94, 30);
+        rect(-135, -105, 270, 30, 100);
+        rect(-148, -86, 290, 30, 100);
+        rect(-157, -75, 315, 44, 20);
+        //Top light orange intrusion
+        fill(255, 161, 79);
+        rect(-52, -115, 188, 50, 100);
+        rect(93, -85, 56, 20, 100);
+        //Top dark orange streak
+        fill(255, 94, 94);
+        rect(-134, -115, 70, 50, 100);
+        rect(-144, -95, 75, 30, 30);
+        rect(-151, -77, 48, 12, 30);
+        //Top Purple band
+        fill(174, 106, 255);
+        rect(-164, -54, 280, 47, 100);
+        rect(-159, -54, 51, 47, 0);
+        //Middle Med Orange Band
+        fill(255, 141, 79);
+        rect(-152, 27, 305, 60, 100);
+        rect(-164, 27, 50, 26, 100);
+        rect(108, 27, 50, 26, 0);
+        //Middle purple band
+        fill(174, 106, 255);
+        rect(-95, 37, 251, 37, 100);
+        rect(125, 37, 30, 20, 0);
+        //Middle red band
+        fill(255, 94, 94);
+        rect(-161, 18, 220, 42, 100);
+        rect(-160, 18, 42, 26, 0);
+        popMatrix();
+        //Reflection
+        fill(255, 40);
+        ellipse(x-52, y-82, 130, 130);
+        //Border
+        noFill();
+        stroke(b);
+        strokeWeight(10);
+        ellipse(x, y, 330, 330);
+    }
+    if(n===5){
+        //Glow
+        noStroke(); 
+        fill(71, 38, 137, 53);
+        strokeWeight(10);
+        ellipse(x, y, 300, 300);
+        pushMatrix();
+        translate(x, y);
+        rotate(15);
+        noStroke();
+        fill(255, 219, 179);
+        ellipse(0, 0, 270, 270);
+        //TL
+        fill(255, 208, 107);
+        rect(-106, -103, 97, 30, 100);
+        rect(-115, -87, 32, 15, 0);
+        //TR
+        rect(-69, -59, 204, 32, 100);
+        rect(108, -50, 23, 23);
+        //ML
+        rect(-144, -17, 168, 26, 100);
+        //MR
+        rect(44, 6, 98, 34, 100);
+        //ML
+        rect(-137, 26, 109, 23, 100);
+        //BR
+        rect(8, 58, 115, 25, 100);
+        //BL
+        rect(-104, 85, 82, 20, 100);
+        popMatrix();
+        //Border
+        noFill();
+        stroke(b);
+        strokeWeight(10);
+        ellipse(x, y, 280, 280);
+        pushMatrix();
+        translate(x, y);
+        strokeWeight(14);
+        //Inner blue ring
+        stroke(0, 140, 191);
+    bezier(-135, -41, -308, 0, 308, 162, 142, 32);
+    //Middle green ring
+        stroke(0, 196, 155);
+    bezier(-135, -50, -348, 6, 344, 188, 142, 23);
+    //Middle blue ring
+        stroke(0, 166, 228);
+        strokeWeight(13);
+    bezier(-131, -60, -393, 15, 383, 216, 142, 11);
+    //Outer green ring
+        stroke(0, 184, 144);
+        strokeWeight(7);
+    bezier(-131, -69, -420, 30, 418, 234, 142, -2);
+        //First Cover
+        popMatrix();
+        pushMatrix();
+        translate(x, y);
+        translate(-123, -76);
+        rotate(30);
+        stroke(b);
+        strokeWeight(1);
+        fill(b);
+        rect(0, 0, 7, 16, 100);
+        rotate(-30);
+        translate(123, 76);
+        translate(-129, -66);
+        rotate(17);
+        rect(0, 0, 7, 44, 100);
+        popMatrix();
+        //Second Cover
+        pushMatrix();
+        translate(x, y);
+        translate(129, -1);
+        rotate(-1);
+        stroke(b);
+        strokeWeight(1);
+        fill(b);
+        //rect(0, 0, 7, 16, 100);
+        rotate(30);
+        translate(-123, -76);
+        translate(129, 66);
+        rotate(-17);
+        rect(0, 0, 7, 44, 100);   
+        popMatrix();
+        //Reflection
+        noStroke();
+        fill(255, 40);
+        ellipse(x-35, y-69, 120, 120);
+    }
+    if(n===6){
+        //Glow
+        noStroke(); 
+        fill(71, 38, 137, 53);
+        strokeWeight(10);
+        ellipse(x, y, 270, 270);
+        fill(71, 213, 229);
+        ellipse(x, y, 240, 240);
+        //TL
+        fill(34, 187, 229);
+        rect(x+-64, y+-114, 29, 14, 100);
+        rect(x+-40, y+-121, 5, 13, 100);
+        //TR
+        //Border
+        noFill();
+        stroke(b);
+        strokeWeight(10);
+        ellipse(x, y, 250, 250);
+    }
+}
+background(16, 11, 57);
+bckgrnd(100);
+var ba = get(0, 0, width, width);
+draw = function() {
+image(ba, 0, 0);
+planet(75, 60, 0, color(16, 11, 57));
+planet(230, 70, 1, color(16, 11, 57));
+planet(420, 85, 2, color(16, 11, 57));
+planet(610, 70, 3, color(16, 11, 57));
+planet(180, 320, 4, color(16, 11, 57));
+planet(540, 320, 5, color(16, 11, 57));
+planet(400, 400, 6, color(16, 11, 57));   
+};
+
+
+
               }};
               var canvas = document.getElementById("mycanvas"); 
               var processingInstance = new Processing(canvas, sketchProc); 
