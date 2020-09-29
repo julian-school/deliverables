@@ -77,7 +77,7 @@ function bckgrnd(stars){
 function glow(x, y, intensity, brightness, luminescence, haziness, clr){
     for(var i = intensity*(5-haziness); i > 1; i-=7){
         noStroke();
-        fill(red(clr)+(intensity-i)+brightness, green(clr)+(intensity-i)+brightness, blue(clr)+(intensity-i)+brightness);
+        fill(red(clr)+(intensity-i)+brightness, green(clr)+(intensity-i)+brightness, blue(clr)+(intensity-i)+brightness, luminescence);
         ellipse(x, y, i*5/(5-haziness), i*5/(5-haziness));
     }    
 }
