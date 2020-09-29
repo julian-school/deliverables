@@ -27,8 +27,12 @@
  <script>
     var sketchProc = function(processingInstance) {
      with (processingInstance) {
-        size(600, 600); 
+        size(vx, vh); 
         frameRate(60);
+       
+   function radians(n){
+     return n * (Math.PI/180);
+   }
  //960x540
 //Pallete:
 
