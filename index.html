@@ -308,14 +308,14 @@ function planet(x, y, n, b){
         strokeWeight(10);
         ellipse(x, y, 350, 350);
         translate(x, y);
-        rotate(15);
+        rotate(radians(15));
         noStroke();
         fill(255, 161, 79);
         ellipse(0, 0, 320, 320);
         //T&B 
         fill(255, 208, 107);
-        arc(0, -129, 191, 60, 180, 360);
-        arc(0, 115, 225, 95, 0, 180);
+        arc(0, -129, 191, 60, radians(180), radians(360));
+        arc(0, 115, 225, 95, radians(0), radians(180));
         //Top Med orange band
         fill(255, 141, 79);
         rect(-122, -130, 242, 94, 30);
@@ -366,7 +366,7 @@ function planet(x, y, n, b){
         ellipse(x, y, 300, 300);
         pushMatrix();
         translate(x, y);
-        rotate(15);
+        rotate(radians(15));
         noStroke();
         fill(255, 219, 179);
         ellipse(0, 0, 270, 270);
@@ -415,30 +415,30 @@ function planet(x, y, n, b){
         pushMatrix();
         translate(x, y);
         translate(-123, -76);
-        rotate(30);
+        rotate(radians(30));
         stroke(b);
         strokeWeight(1);
         fill(b);
         rect(0, 0, 7, 16, 100);
-        rotate(-30);
+        rotate(radians(-30));
         translate(123, 76);
         translate(-129, -66);
-        rotate(17);
+        rotate(radians(17));
         rect(0, 0, 7, 44, 100);
         popMatrix();
         //Second Cover
         pushMatrix();
         translate(x, y);
         translate(129, -1);
-        rotate(-1);
+        rotate(radians(-1));
         stroke(b);
         strokeWeight(1);
         fill(b);
         //rect(0, 0, 7, 16, 100);
-        rotate(30);
+        rotate(radians(30));
         translate(-123, -76);
         translate(129, 66);
-        rotate(-17);
+        rotate(radians(-17));
         rect(0, 0, 7, 44, 100);   
         popMatrix();
         //Reflection
