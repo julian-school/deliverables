@@ -13,6 +13,14 @@
       font-size: 80px;
       font-family: 'Antic Slab', serif;
     }
+    canvas {
+      outline: 0px;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+  }
   </style>
   </head>
   <body>
@@ -26,7 +34,7 @@
  <script>
     var sketchProc = function(processingInstance) {
      with (processingInstance) {
-        size(1920, 1080);
+    size(window.innerWidth, window.innerHeight);
         frameRate(60);
        
    function radians(n){
