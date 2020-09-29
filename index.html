@@ -74,7 +74,13 @@ function bckgrnd(stars){
         y: random(0, height)
         });
     }
-
+function glow(x, y, intensity, brightness, luminescence, haziness, clr){
+    for(var i = intensity*(5-haziness); i > 1; i-=7){
+        noStroke();
+        fill(red(clr)+(intensity-i)+brightness, green(clr)+(intensity-i)+brightness, blue(clr)+(intensity-i)+brightness, luminescence);
+        ellipse(x, y, i*5/(5-haziness), i*5/(5-haziness));
+    }    
+}
     for(var i=0; i < pos.length; i++){
     var s = 10;
     s=8;
@@ -487,6 +493,7 @@ planet(610, 70, 3, color(16, 11, 57));
 planet(180, 320, 4, color(16, 11, 57));
 planet(540, 320, 5, color(16, 11, 57));
 planet(400, 400, 6, color(16, 11, 57));   
+    glow(width/2, height/2, 100+(sin(frameCount*3)*2), 200+(sin(frameCount*2.5)*20), 20+cos(frameCount*2)*10, 3, color(128, 128, 0));
 };
 
 
